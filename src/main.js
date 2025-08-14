@@ -9,7 +9,7 @@ import { createGallery } from './js/render-functions';
 
 export const form = document.querySelector('.form');
 const input = document.querySelector('input[type=text]');
-const btn = document.querySelector('button[type="submit"]');
+// const btn = document.querySelector('button[type="submit"]');
 
 form.addEventListener('submit', event => {
   clearGallery();
@@ -25,11 +25,11 @@ form.addEventListener('submit', event => {
     showLoader();
     getImagesByQuery(query)
       .then(res => {
-        if (res.data.hits.length === 0) {
+        if (res.length === 0) {
           throw new Error();
         }
-        createGallery(res.data.hits);
-        return res.data.hits;
+        createGallery(res);
+        return res;
       })
       .catch(error => {
         iziToast.error({

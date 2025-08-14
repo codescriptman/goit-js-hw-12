@@ -3,6 +3,9 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import { form } from '../main';
 
+const gallery = document.querySelector('.gallery');
+const btnMore = document.querySelector('btn-load-more');
+
 const galleryUse = new SimpleLightbox('.gallery .gallery-link', {
   captionsData: 'alt',
   captionPosition: 'bottom',
@@ -20,17 +23,16 @@ export function hideLoader() {
   return;
 }
 export function clearGallery() {
-  if (document.querySelector('.gallery')) {
-    document.querySelector('.gallery').remove();
+  if (!gallery.classList.contains('visually-hidden')) {
+    gallery.classList.add('visually-hidden');
   }
   return;
 }
 export function createGallery(images) {
-  if (!document.querySelector('.gallery')) {
-    form.insertAdjacentHTML('afterend', '<ul class="gallery"></ul>');
-    const gallery = document.querySelector('.gallery');
+  if (gallery.classList.contains('visually-hidden')) {
+    gallery.classList.remove('visually-hidden');
+    btnMore.classList.remove('visually-hidden');
   }
-  const gallery = document.querySelector('.gallery');
   const markup = images
     .map(
       ({
