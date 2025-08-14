@@ -4,7 +4,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { form } from '../main';
 
 const gallery = document.querySelector('.gallery');
-const btnMore = document.querySelector('btn-load-more');
+const btnMore = document.querySelector('.btn-load-more');
 
 const galleryUse = new SimpleLightbox('.gallery .gallery-link', {
   captionsData: 'alt',
@@ -24,7 +24,9 @@ export function hideLoader() {
 }
 export function clearGallery() {
   if (!gallery.classList.contains('visually-hidden')) {
+    gallery.innerHTML = '';
     gallery.classList.add('visually-hidden');
+    btnMore.classList.add('visually-hidden');
   }
   return;
 }
