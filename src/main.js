@@ -2,7 +2,6 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 import { getImagesByQuery } from './js/pixabay-api';
-// import { catchFunc } from './js/pixabay-api';
 import { showLoader } from './js/render-functions';
 import { hideLoader } from './js/render-functions';
 import { clearGallery } from './js/render-functions';
@@ -10,17 +9,27 @@ import { createGallery } from './js/render-functions';
 
 export const form = document.querySelector('.form');
 const input = document.querySelector('input[type=text]');
-// const btn = document.querySelector('button[type="submit"]');
+export const btnMore = document.querySelector('.btn-load-more');
 
-const catchFunc = async query => {
+let page = 1;
+let query = null;
+
+const catchFunc = async (query, page) => {
   try {
-    const images = await getImagesByQuery(query);
+    const images = await getImagesByQuery(query, page);
     if (images.length === 0) {
       throw new Error();
     }
     createGallery(images);
-    hideLoader();
-    form.reset();
+    const totalPages = Math.ceil(images.length / 15);
+    if (page === totalPages) {
+      btnMore.classList.add('visually-hidden');
+      iziToast.show({
+        position: 'topRight',
+        message: `Sorry, there are no images matching your search query. Please try again!
+    `,
+      });
+    }
   } catch (error) {
     iziToast.error({
       position: 'topRight',
@@ -34,9 +43,11 @@ const catchFunc = async query => {
 };
 
 form.addEventListener('submit', event => {
+  query = null;
+  page = 1;
   clearGallery();
   event.preventDefault();
-  let query = String(input.value).trim();
+  query = String(input.value).trim();
   if (query === '') {
     form.reset();
     iziToast.error({
@@ -45,25 +56,13 @@ form.addEventListener('submit', event => {
     });
   } else {
     showLoader();
-    catchFunc(query);
-    //     getImagesByQuery(query, 1)
-    //       .then(res => {
-    //         if (res.length === 0) {
-    //           throw new Error();
-    //         }
-    //         createGallery(res);
-    //         return res;
-    //       })
-    //       .catch(error => {
-    //         iziToast.error({
-    //           position: 'topRight',
-    //           message: `Sorry, there are no images matching your search query. Please try again!
-    // `,
-    //         });
-    //       })
-    //       .finally(() => {
-    //         hideLoader();
-    //         form.reset();
-    //       });
+    catchFunc(query, page);
   }
 });
+
+if (btnMore) {
+  btnMore.addEventListener('click', event => {
+    page++;
+    catchFunc(query, page);
+  });
+}

@@ -2,9 +2,9 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import { form } from '../main';
+import { btnMore } from '../main';
 
 const gallery = document.querySelector('.gallery');
-const btnMore = document.querySelector('.btn-load-more');
 
 const galleryUse = new SimpleLightbox('.gallery .gallery-link', {
   captionsData: 'alt',
@@ -68,7 +68,7 @@ export function createGallery(images) {
   </li>`
     )
     .join('');
-  gallery.insertAdjacentHTML('afterbegin', markup);
+  gallery.insertAdjacentHTML('beforeend', markup);
   galleryUse.refresh();
   galleryUse.on('show.simplelightbox', () => {});
 }
