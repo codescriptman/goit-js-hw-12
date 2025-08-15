@@ -4,7 +4,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { form } from '../main';
 import { btnMore } from '../main';
 
-const gallery = document.querySelector('.gallery');
+export const gallery = document.querySelector('.gallery');
 
 const galleryUse = new SimpleLightbox('.gallery .gallery-link', {
   captionsData: 'alt',

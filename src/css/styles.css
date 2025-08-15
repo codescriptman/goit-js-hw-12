@@ -64,12 +64,32 @@
   cursor: auto;
   background: gray;
 }
+.btn-load-more {
+  border: none;
+  margin: 0 auto;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 125px;
+  height: 40px;
+  background: #4e75ff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+
+.btn-load-more:hover {
+  background: #6c8cff;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
   /* width: calc((100% - 48px) / 3); */
   gap: 24px;
   justify-content: center;
+  margin-bottom: 32px;
 }
 .gallery-item {
   width: 360px;

@@ -58,11 +58,25 @@ form.addEventListener('submit', event => {
     showLoader();
     catchFunc(query, page);
   }
+  // if (document.querySelector('.gallery-item')) {
+  //   document.querySelector('.gallery-item').getBoundingClientRect();
+  // }
 });
 
 if (btnMore) {
   btnMore.addEventListener('click', event => {
     page++;
     catchFunc(query, page);
+    const galleryItemOptions = document
+      .querySelector('.gallery-item')
+      .getBoundingClientRect();
+    let height = galleryItemOptions.height;
+    const options = {
+      top: height,
+      left: 0,
+      behavior: 'smooth',
+    };
+    window.scrollBy(options);
+    console.log(options);
   });
 }
