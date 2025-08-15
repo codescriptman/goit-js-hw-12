@@ -17,11 +17,11 @@ let query = null;
 const catchFunc = async (query, page) => {
   try {
     const images = await getImagesByQuery(query, page);
-    if (images.length === 0) {
+    if (images.totalHits === 0) {
       throw new Error();
     }
-    createGallery(images);
-    const totalPages = Math.ceil(images.length / 15);
+    createGallery(images.hits);
+    const totalPages = Math.ceil(images.totalHits / 15);
     if (page === totalPages) {
       btnMore.classList.add('visually-hidden');
       iziToast.show({
