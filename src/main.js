@@ -30,6 +30,15 @@ const catchFunc = async (query, page) => {
     `,
       });
     }
+    const galleryItemOptions = document
+      .querySelector('.gallery-item')
+      .getBoundingClientRect();
+    let height = galleryItemOptions.height;
+    let options = {
+      top: height * 3,
+      behavior: 'smooth',
+    };
+    window.scrollBy(options);
   } catch (error) {
     iziToast.error({
       position: 'topRight',
@@ -67,16 +76,5 @@ if (btnMore) {
   btnMore.addEventListener('click', event => {
     page++;
     catchFunc(query, page);
-    const galleryItemOptions = document
-      .querySelector('.gallery-item')
-      .getBoundingClientRect();
-    let height = galleryItemOptions.height;
-    const options = {
-      top: height,
-      left: 0,
-      behavior: 'smooth',
-    };
-    window.scrollBy(options);
-    console.log(options);
   });
 }

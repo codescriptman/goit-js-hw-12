@@ -16,7 +16,7 @@
 @import url('./badges.css');
 @import url('./back-link.css');
 @import url('./footer.css'); */
-@import url('./loader');
+@import url('./loader.css');
 .form {
   margin: 0 auto;
   margin-bottom: 32px;
